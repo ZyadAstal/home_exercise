@@ -12,3 +12,5 @@ Route::get('/about', [blogController::class, 'about'])->name('about');
 Route::get('/post', [blogController::class, 'post'])->name('post');
 
 Route::get('/contact', [blogController::class, 'contact'])->name('contact');
+
+Route::post('/contact_data', [blogController::class, 'contact_data'])->name('blog.contact_data');

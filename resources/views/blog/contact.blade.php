@@ -28,62 +28,78 @@
                         <!-- To make this form functional, sign up at-->
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!-->
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                        <form id="contactForm" method="POST" action="{{ route('blog.contact_data') }} "
+                            enctype="multipart/form-data">
+                            @csrf
                             <div class="form-floating">
-                                <input class="form-control" id="name" type="text" placeholder="Enter your name..."
-                                    data-sb-validations="required" />
+                                <input id="name" type="text" placeholder="Enter your name..."
+                                    data-sb-validations="required"
+                                    class="form-control name-field @error('name') is-invalid @enderror" name="name"
+                                    value="{{ old('name') }}" />
+                                @error('name')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
                                 <label for="name">Name</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                {{-- <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div> --}}
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="email" type="email" placeholder="Enter your email..."
-                                    data-sb-validations="required,email" />
+                                <input id="email" type="email" placeholder="Enter your email..."
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ old('email') }}" />
+                                @error('email')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
                                 <label for="email">Email address</label>
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                {{-- <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div> --}}
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="phone" type="tel"
-                                    placeholder="Enter your phone number..." data-sb-validations="required" />
-                                <label for="phone">Phone Number</label>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.
+                                <input id="phone" type="tel" placeholder="Enter your phone number..."
+                                    class="form-control @error('phone') is-invalid @enderror" name="phone"
+                                    value="{{ old('phone') }}" />
+                                @error('phone')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
+                                <label for="phone">Phone</label>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Image</label>
+                                    <input type="file" id="cv"
+                                        class="form-control @error('cv') is-invalid @enderror" name="cv"
+                                        value="{{ old('cv') }}" />
+                                    @error('cv')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
-                            <div class="form-floating">
+                            {{-- <div class="form-floating">
                                 <textarea class="form-control" id="message" placeholder="Enter your message here..." style="height: 12rem"
-                                    data-sb-validations="required"></textarea>
-                                <label for="message">Message</label>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.
+                                    @error('massage') is-invalid @enderror" name="massage">{{ old('massage') }}</textarea>
+                                @error('massage')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
+                                <label for="massage">Message</label>
+                            </div> --}}
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="">Massage:</label>
+                                    <textarea id="message" placeholder="Enter your message here..."
+                                        class="form-control @error('massage') is-invalid @enderror" name="massage" style="height: 12rem">{{ old('massage') }}</textarea>
+                                    @error('massage')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
-                            <br />
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a
-                                        href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
-                            <div class="d-none" id="submitErrorMessage">
-                                <div class="text-center text-danger mb-3">Error sending message!</div>
-                            </div>
-                            <!-- Submit Button-->
-                            <button class="btn btn-primary text-uppercase disabled" id="submitButton"
-                                type="submit">Send</button>
-                        </form>
                     </div>
+                    <div class="col-12">
+                        <button class="btn btn-success">Send</button>
+                    </div>
+                    </form>
                 </div>
             </div>
+        </div>
         </div>
     </main>
     <!-- Footer-->
